@@ -1,0 +1,26 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'run', 'gulp' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 verbose run-script [ 'pregulp', 'gulp', 'postgulp' ]
+5 info pregulp frontendawesome@1.0.0
+6 info gulp frontendawesome@1.0.0
+7 verbose unsafe-perm in lifecycle true
+8 info frontendawesome@1.0.0 Failed to exec gulp script
+9 error frontendawesome@1.0.0 gulp: `gulp`
+9 error Exit status 8
+10 error Failed at the frontendawesome@1.0.0 gulp script.
+10 error This is most likely a problem with the frontendawesome package,
+10 error not with npm itself.
+10 error Tell the author that this fails on your system:
+10 error     gulp
+10 error You can get their info via:
+10 error     npm owner ls frontendawesome
+10 error There is likely additional logging output above.
+11 error System Darwin 13.3.0
+12 error command "node" "/usr/local/bin/npm" "run" "gulp"
+13 error cwd /Users/kaiqigong/frontendAwesome
+14 error node -v v0.10.26
+15 error npm -v 1.4.3
+16 error code ELIFECYCLE
+17 verbose exit [ 1, true ]
