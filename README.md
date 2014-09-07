@@ -24,3 +24,29 @@ More info on this can be found on the Ionic [Getting Started](http://ionicframew
 ## Issues
 Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/submit-issue/) to the main Ionic repository.
 
+## Additional stuff
++ Added coffee and scss support  
++ Auto inject bower js,css to index.html  
++ Auto inject compiled js/css to index.html
++ Auto inject custom scss to scss/app.scss
+
+## Pre-requests
+```sudo npm install -g cordova ionic```  
+```sudo npm install -g gulp```  
+```cordova platform add ios```  
+```sudo npm install -g ios-sim```
+
+## Usage
++ Clone this repo  
+```
+cd proDir
+npm install
+gulp install
+npm start // will compile coffee, scss, inject, watch and start server at :8100
+ionic build ios // build ios
+ionic emulate ios // emulate
+```
++ The gulp use liveload, install this [plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) for chrome. 
+
+## Contribution
++ Feel free to make pull requests!
