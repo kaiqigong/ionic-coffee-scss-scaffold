@@ -23,6 +23,7 @@ And add some refinements.
 ```
 cd proDir
 npm install
+bower install
 gulp install
 npm start // will compile coffee, scss, inject, watch and start server at :8100
 ionic build ios // build ios
