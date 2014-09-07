@@ -16,41 +16,48 @@ base = {
 paths = {
   sass: ['./www/scss/**/*.scss'],
   coffee: ['./www/coffee/**/*.coffee'],
-  index: './www/index.html'
+  index: './www/index.html',
 },
-pathTransform = function (filepath) {
-  arguments[0] = filepath.replace(/(\/|)www\//,'')
-  return inject.transform.apply(inject.transform, arguments);
-};
+// you can change including files by editing the bower.json
+bowerPath = bowerFiles({
+  paths:{
+    bowerDirectory: './www/lib'
+  }
+});
 gulp.task('default', ['sass', 'coffee', 'index', 'watch']);
 
 gulp.task('index', function () {
+  console.log(bowerPath);
   gulp.src(paths.index)
   .pipe(inject(
-    gulp.src(['./www/js/**/*.js'], {read: false}).pipe(angularFilesort())
-    , {transform: pathTransform}
+    gulp.src(['./www/js/**/*.js','./www/css/**/*.css'], {read: false}).pipe(angularFilesort())
+    , {relative: true, ignorePath: '/www/', addRootSlash: false}
     ))
   .pipe(inject(
-    gulp.src(
-      bowerFiles({
-        paths:{
-          bowerDirectory: './www/lib'
-        }
-      })
-      ) , {name: 'bower',transform: pathTransform}
+    gulp.src(bowerPath)
+    , {name: 'bower', relative: true, ignorePath: '/www/', addRootSlash: false}
     ))
   .pipe(gulp.dest('./www'));
 });
 
 gulp.task('sass', function(done) {
-  gulp.src('./www/scss/ionic.app.scss')
+  gulp.src('./www/scss/app.scss')
+  .pipe(inject(gulp.src(['./www/scss/**/*.scss','!./www/scss/app.scss'], {read: false})
+    ,{starttag: '// inject:scss',
+    endtag: '// endinject',
+    transform: function (filepath) {
+      console.log(filepath);
+      return '@import "' + filepath + '";';
+    },relative: true}))
+  .pipe(gulp.dest('./www/scss/'))
   .pipe(sass())
   .pipe(gulp.dest('./www/css/'))
-  .pipe(minifyCss({
-    keepSpecialComments: 0
-  }))
-  .pipe(rename({ extname: '.min.css' }))
-  .pipe(gulp.dest('./www/css/'))
+  // minify
+  // .pipe(minifyCss({
+  //   keepSpecialComments: 0
+  // }))
+  // .pipe(rename({ extname: '.min.css' }))
+  // .pipe(gulp.dest('./www/css/'))
   .on('end', done);
 });
 
@@ -64,7 +71,7 @@ gulp.task('coffee', function(done) {
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.coffee, ['coffee']);
-  gulp.watch(paths.index,['index']);
+  gulp.watch([paths.index, 'bower.json'],['index']);
 });
 
 gulp.task('install', ['git-check'], function() {

@@ -14,10 +14,17 @@ $assertive:                       #ef4e3a !default;
 $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
 */
+
+// Different with less. Then var cannot be override?
+$positive: #FF9900;
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-$positive: #FF9900;
+// inject:scss
+@import "themes/button.scss";
+// endinject
+

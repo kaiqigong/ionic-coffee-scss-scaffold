@@ -3,5 +3,14 @@
   "private": "true",
   "dependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-beta.11"
+    },
+    "overrides": {
+      "ionic":{
+        "main": [
+        "fonts/*",
+        "js/ionic.js",
+        "js/ionic-angular.js"
+        ]
+      }
+    }
   }
-}
