@@ -7,4 +7,4 @@ plugins/
 www/js
 www/lib
 www/css
-
+npm-debug.log

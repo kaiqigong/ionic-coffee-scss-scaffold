@@ -10,6 +10,7 @@ coffee = require('gulp-coffee'),
 inject = require("gulp-inject"),
 angularFilesort = require('gulp-angular-filesort'),
 bowerFiles = require('main-bower-files'),
+runSequence = require('run-sequence'),
 base = {
   www: './www/'
 },
@@ -24,13 +25,16 @@ bowerPath = bowerFiles({
     bowerDirectory: './www/lib'
   }
 });
-gulp.task('default', ['sass', 'coffee', 'index', 'watch']);
 
 gulp.task('index', function () {
   console.log(bowerPath);
   gulp.src(paths.index)
   .pipe(inject(
-    gulp.src(['./www/js/**/*.js','./www/css/**/*.css'], {read: false}).pipe(angularFilesort())
+    gulp.src(['./www/js/**/*.js']).pipe(angularFilesort())
+    , {relative: true, ignorePath: '/www/', addRootSlash: false}
+    ))
+  .pipe(inject(
+    gulp.src(['./www/css/**/*.css'])
     , {relative: true, ignorePath: '/www/', addRootSlash: false}
     ))
   .pipe(inject(
@@ -42,7 +46,7 @@ gulp.task('index', function () {
 
 gulp.task('sass', function(done) {
   gulp.src('./www/scss/app.scss')
-  .pipe(inject(gulp.src(['./www/scss/**/*.scss','!./www/scss/app.scss'], {read: false})
+  .pipe(inject(gulp.src(['./www/scss/**/*.scss','!./www/scss/app.scss'])
     ,{starttag: '// inject:scss',
     endtag: '// endinject',
     transform: function (filepath) {
@@ -73,6 +77,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.coffee, ['coffee']);
   gulp.watch([paths.index, 'bower.json'],['index']);
 });
+
+gulp.task('default', runSequence(['sass', 'coffee', 'index', 'watch']));
 
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()

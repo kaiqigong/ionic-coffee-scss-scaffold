@@ -12,11 +12,12 @@
   },
   "devDependencies": {
     "bower": "^1.3.3",
-    "gulp-util": "^2.2.14",
-    "shelljs": "^0.3.0",
-    "gulp-inject": "^1.0.2",
     "gulp-angular-filesort": "^1.0.4",
-    "main-bower-files": "^2.0.0"
+    "gulp-inject": "^1.0.2",
+    "gulp-util": "^2.2.14",
+    "main-bower-files": "^2.0.0",
+    "run-sequence": "^1.0.2",
+    "shelljs": "^0.3.0"
   },
   "scripts": {
     "gulp": "gulp",
